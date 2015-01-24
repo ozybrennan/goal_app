@@ -1,0 +1,14 @@
+<% action_path = sign_up ? users_url : session_url %>
+<% button_message = sign_up ? "Sign Up" : "Sign In" %>
+
+<form action='<%= action_path %>' method = "POST">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+<label for="username">Username</label>
+<input type="text" name="user[username]" id="username" value="<%= @user.username %>">
+
+<label for="password">Password</label>
+<input type="password" name="user[password]" id="password" >
+
+<input type="submit" value="<%= button_message %>">
+</form>

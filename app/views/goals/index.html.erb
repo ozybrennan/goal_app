@@ -1,0 +1,14 @@
+<% sorted_goals = @goals.sort_by { |goal| goal.cheers.count }.reverse %>
+<ol>
+<% sorted_goals.each do |goal| %>
+  <% unless goal.private_goal %>
+    <li>
+    <%= link_to goal.body, goal_url(goal) %>
+    <%= link_to goal.user.username, user_url(goal.user) %>
+    <%= goal.cheers.count %>
+    </li>
+  <% end %>
+<% end %>
+</ol>
+
+<%= button_to "Create Goals", new_goal_url, method: :get %>

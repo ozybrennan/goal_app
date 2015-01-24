@@ -1,0 +1,19 @@
+<%= @goal.body %>
+<%= "Completed" if @goal.completed == true %>
+<%= button_to "Edit Goal", edit_goal_url(@goal), method: :get %>
+<%= button_to "Delete Goal", goal_url(@goal), method: :delete %>
+
+<% @goal.cheers.each do |cheer| %>
+  <%= "Cheered by #{cheer.user.username}" %>
+<% end %>
+
+<% if @goal.cheerers.include?(current_user) %>
+  <%= button_to "uncheer", goal_cheer_url(id: Cheer.find_by_user_id(current_user.id),
+    goal_id: @goal.id), method: :delete %>
+<% elsif current_user.cheers > 0 %>
+  <%= button_to "cheer", goal_cheers_url(goal_id: @goal.id) %>
+<% end %>
+
+<%= render 'layouts/new_comment', commentable: @goal %>
+
+<%= link_to "Leaderboard", goals_url %>
